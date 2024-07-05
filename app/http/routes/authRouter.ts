@@ -9,5 +9,6 @@ const router = express.Router();
 router.post('/api/create-user', valiateRegisterUser, authController.createUser);
 router.get('/api/protected', authMiddleware.authenticateUser, authController.protectedRoute);
 router.post('/api/signin', validateLoginUser, authController.signInUser);
+router.put('/api/user/:userId', authMiddleware.authenticateUser, authController.updateOneUser);
 
 export default router;

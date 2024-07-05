@@ -20,6 +20,7 @@ async function registerUser(userData: UserAttributes) {
   const passwordHash: string = await hash.hashPassword(userData.password);
 
   const newUser = await User.create({
+    userId: randomUUID(),
     firstName: userData.firstName,
     lastName: userData.lastName,
     email: userData.email,
@@ -28,7 +29,7 @@ async function registerUser(userData: UserAttributes) {
   })
 
   const { _id, userId, firstName, lastName, email, createdAt, updatedAt } = newUser;
-  const data = { userId, _id, firstName, lastName, email, createdAt, updatedAt };
+  const data = { _id, userId, firstName, lastName, email, createdAt, updatedAt };
 
   return data
 }
@@ -65,7 +66,31 @@ async function login(userData: UserInterface) {
   return data;
 }
 
+async function updateUser(userData: UserAttributes, userId: string) {
+  const existingUser: UserAttributes | null = await User.findOne({ userId: userId });
+
+  if (!existingUser) {
+    throw new BadUserRequestError("User credentials does not exist in our database")
+  }
+
+  const updatedUser: any = await User.findOneAndUpdate({ userId: existingUser.userId}, { ...userData }, {new: true})
+
+  const data = {
+    id: updatedUser._id,
+    userId: updatedUser.userId,
+    email: updatedUser.email,
+    firstName: updatedUser.firstName,
+    lastName: updatedUser.lastName,
+    createdAt: updatedUser.createdAt,
+    updatedAt: updatedUser.updatedAt,
+
+  }
+
+  return data;
+}
+
 export {
     registerUser,
+    updateUser,
     login
 }

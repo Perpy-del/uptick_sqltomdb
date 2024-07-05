@@ -30,6 +30,21 @@ async function signInUser(request: Request, response: Response): Promise<void> {
   }
 }
 
+async function updateOneUser(request: Request, response: Response): Promise<void> {
+  try {
+    const result = await service.updateUser(request.body, request.params.userId);
+
+    response.json({ data: result })
+
+  } catch (error: any) {
+    console.log('Error querying database: ', error);
+
+    response
+      .status(error.statusCode || 500)
+      .json({ data: { error: `${error.message}` } });
+  }
+}
+
 function protectedRoute(request: Request, response: Response): void {
   response.status(200).json({
     status: 'Success',
@@ -40,5 +55,6 @@ function protectedRoute(request: Request, response: Response): void {
 export {
   createUser,
   signInUser,
+  updateOneUser,
   protectedRoute,
 };
