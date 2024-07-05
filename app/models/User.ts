@@ -1,7 +1,7 @@
 import { Schema, model, Model, Document, VirtualType } from 'mongoose';
 
 interface UserAttributes {
-  userId: string;
+  userId?: string;
   firstName: string;
   lastName: string;
   email: string;
