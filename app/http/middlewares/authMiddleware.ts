@@ -6,7 +6,7 @@ import { Request, Response, NextFunction } from 'express';
 function generateToken(data: PayloadInterface) {
   const tokenExpiryTime = addSeconds(
     new Date(),
-    Number(process.env.DEV_JWT_EXPIRY_TIME)
+    Number(process.env.PROD_JWT_EXPIRY_TIME)
   );
 
   const payload = {
@@ -15,9 +15,9 @@ function generateToken(data: PayloadInterface) {
     id: data.id,
   };
 
-  const token = jwt.sign(payload, process.env.DEV_APP_SECRET as any, {
-    // issuer: process.env.DEV_JWT_ISSUER,
+  const token = jwt.sign(payload, process.env.PROD_APP_SECRET as any, {
     issuer: process.env.DEV_JWT_ISSUER,
+    // issuer: process.env.PROD_JWT_ISSUER,
   });
 
   return { token, tokenExpiryTime };
@@ -40,7 +40,7 @@ function authenticateUser(request: Request, response: Response, next: NextFuncti
     const token = authorizationHeader.split(' ')[1]
 
     try {
-      jwt.verify(token, process.env.DEV_APP_SECRET as Secret | GetPublicKeyOrSecret)
+      jwt.verify(token, process.env.PROD_APP_SECRET as Secret | GetPublicKeyOrSecret)
     } catch (error: any) {
       return response.status(401).json({
         data: {
