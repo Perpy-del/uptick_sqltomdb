@@ -18,7 +18,7 @@ import app from './app/index.js';
 
 const log = debug('uptick:server')
 
-function normalizePort(val) {
+function normalizePort(val: string) {
   const myPort = parseInt(val, 10);
 
   if (isNaN(myPort)) {
@@ -51,7 +51,7 @@ const server = http.createServer(app);
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onError(error: any) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -79,7 +79,7 @@ function onError(error) {
 
 function onListening() {
   const addr = server.address();
-  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr?.port}`;
   debug(`Listening on ${bind}`);
   console.log(`Listening on ${bind}`);
 }
