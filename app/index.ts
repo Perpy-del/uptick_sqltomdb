@@ -4,7 +4,7 @@ import logger from 'morgan';
 import rotatingFileStream from '../config/logger.js';
 import cors from 'cors';
 import dotenv from 'dotenv'
-// import authRouter from './http/routes/authRouter.js'
+import authRouter from './http/routes/authRouter.js'
 // import blogRouter from './http/routes/blogRouter.js';
 import connectToDb from '../config/database.js';
 
@@ -21,9 +21,9 @@ app.use(cookieParser());
 app.use(cors());
 
 // Define routers
-// app.use(authRouter)
+app.use(authRouter)
 // app.use(blogRouter);
 
-app.get('/api', (req, res) => res.send('Welcome to UptickSQL!!! 😎'));
+app.get('/api', (req, res) => res.send('Welcome to Uptick with MongoDB!!! 😎'));
 
 export default app;

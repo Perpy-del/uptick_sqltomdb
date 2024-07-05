@@ -1,12 +1,15 @@
 import { Schema, model, Model, Document, VirtualType } from 'mongoose';
+import { randomUUID } from 'crypto';
 
-interface UserAttributes {
+export interface UserAttributes {
   userId?: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   confirmPassword?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 interface UserDocument extends Document, UserAttributes {}
@@ -16,7 +19,8 @@ interface UserModel extends Model<UserDocument> {}
 const userSchema = new Schema<UserDocument, UserModel>( 
   {
     userId: {
-      type: String,
+      type: Schema.Types.UUID,
+      default: () => randomUUID(),
       required: true
     },
     firstName: {
@@ -36,7 +40,7 @@ const userSchema = new Schema<UserDocument, UserModel>(
       required: true
     },
     confirmPassword: {
-      type: VirtualType,
+      type: String,
       get(this: UserDocument) {
         return this.password
       }
