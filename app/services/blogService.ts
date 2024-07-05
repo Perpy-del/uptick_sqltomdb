@@ -1,75 +1,74 @@
-// import { BlogInterface } from "../interfaces/BlogInterface";
+import { BlogInterface } from '../interfaces/BlogInterface';
 
-// import Blog from '../../db/models/Blog';
-// import NotFoundError from '../errors/NotFoundError.js';
-// import sluggify from '../utilities/sluggify.js';
+import Blog, { BlogAttributes } from '../models/Blog.js';
+import NotFoundError from '../errors/NotFoundError.js';
+import sluggify from '../utilities/sluggify.js';
+import { randomUUID } from 'crypto';
 
-// // Get All Posts
-// async function getPosts() {
-//   const posts = await Blog.findAll();
+// Get All Posts
+async function getPosts(): Promise<Array<BlogAttributes | null>> {
+  const posts: Array<BlogAttributes | null> = await Blog.find();
 
-//   return posts;
-// }
+  return posts;
+}
 
-// // Get A Single Post
-// async function getPost(id: string) {
-//   const existingPost = await Blog.findByPk(id);
+// Get A Single Post
+async function getPost(blogId: string): Promise<BlogAttributes | null> {
+  const existingPost: BlogAttributes | null = await Blog.findOne({ blogId: blogId });
 
-//   if (!existingPost) {
-//     throw new NotFoundError('Post not found');
-//   }
+  if (!existingPost) {
+    throw new NotFoundError('Post not found');
+  }
 
-//   return existingPost;
-// }
+  return existingPost;
+}
 
-// // Create A New Post
-// async function createPost(data: BlogInterface) {
-//   const newPost = await Blog.create({
-//     title: data.title,
-//     slug: sluggify(data.title),
-//     author: data.author,
-//     body: data.body,
-//     category: data.category ?? 'Uncategorized',
-//     thumbnail: data.thumbnail,
-//   });
+// Create A New Post
+async function createPost(data: BlogInterface): Promise<BlogAttributes> {
+  const newPost: BlogAttributes = await Blog.create({
+    blogId: randomUUID(),
+    title: data.title,
+    slug: sluggify(data.title),
+    author: data.author,
+    body: data.body,
+    category: data.category ?? 'Uncategorized',
+    thumbnail: data.thumbnail,
+  });
 
-//   return newPost;
-// }
+  return newPost;
+}
 
-// // Update A Blog Post
-// async function updatePost(data: BlogInterface, id: string) {
-//   const existingPost = await Blog.findByPk(id);
+// Update A Blog Post
+async function updatePost(data: BlogInterface, blogId: string): Promise<BlogAttributes | null> {
+  const existingPost: BlogAttributes | null = await Blog.findOne({ blogId });
 
-//   await Blog.update(
-//     {
-//       title: data.title,
-//       slug: data.title ? sluggify(data.title) : existingPost.slug,
-//       author: data.author,
-//       body: data.body,
-//       category: data.category ?? 'Uncategorized',
-//       thumbnail: data.thumbnail,
-//       is_featured: data.is_featured,
-//     },
-//     { where: { id: id } }
-//   );
+  if (!existingPost) {
+    throw new NotFoundError('Post Not Found');
+  }
 
-//   const updatedPost = await Blog.findByPk(id);
+  const updatedPost: BlogAttributes | null = await Blog.findOneAndUpdate(
+    { blogId },
+    {
+      title: data.title,
+      slug: data.title ? sluggify(data.title) : existingPost?.slug,
+      author: data.author,
+      body: data.body,
+      category: data.category ?? 'Uncategorized',
+      thumbnail: data.thumbnail,
+      is_featured: data.is_featured,
+    },
+    { new: true }
+  );
 
-//   return updatedPost;
-// }
+  return updatedPost;
+}
 
-// // Delete A Blog Post 
-// async function deletePost(id: string) {
-//     const postToBeDeleted = await Blog.findByPk(id);
+// Delete A Blog Post
+async function deletePost(blogId: string) {
+  const postToBeDeleted: BlogAttributes | null = await Blog.findOne({ blogId });
 
-//     const deleted = await Blog.destroy({where: {id: id}});
-//     return {deleted, postToBeDeleted};
-// }
+  const deleted = await Blog.deleteOne({ blogId });
+  return { deleted, postToBeDeleted };
+}
 
-// export {
-//   getPosts,
-//   getPost,
-//   createPost,
-//   updatePost,
-//   deletePost
-// };
+export { getPosts, getPost, createPost, updatePost, deletePost };

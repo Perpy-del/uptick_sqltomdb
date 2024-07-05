@@ -1,5 +1,5 @@
 import { Schema, model, Document, Model } from "mongoose";
-interface BlogAttributes {
+export interface BlogAttributes {
   blogId: string;
   title: string;
   slug: string;
@@ -18,7 +18,6 @@ interface BlogModel extends Model<BlogDocument> {}
 
 // Define the blog schema
 const blogSchema = new Schema<BlogDocument, BlogModel>(
-
   {
     blogId: {
       type: String,
