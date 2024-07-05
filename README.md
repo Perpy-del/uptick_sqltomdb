@@ -2,9 +2,9 @@
 
 A simple application using NodeJS built on ExpressJS and MongoDB with Mongoose. 
 
-This repository contains the source code for the uptick_nosql application. Follow the instructions below to set up the codebase on your local machine.
+This repository contains the source code for the Uptick NoSQL application. Follow the instructions below to set up the codebase on your local machine.
 
-### Here is the [API Documentation](https://documenter.getpostman.com/view/26756602/2sA3duGZ88)
+### Here is the [API Documentation](https://documenter.getpostman.com/view/26756602/2sA3dyjBw6)
 
 # Table of Contents
 
@@ -59,7 +59,7 @@ Before setting up the codebase, make sure you have the following prerequisites i
 4. Run the application
 
     ```bash
-    npm run start
+    npm run start:dev
     ```
 
 ## Configuration
@@ -136,7 +136,7 @@ Visit `http://localhost:PORT/api` in your web browser to access the application.
 
 **Base URL**
 Main URL
-https://uptick-sql.onrender.com/api
+https://uptick-mdb.onrender.com/api
 
 ## Troubleshooting
 
