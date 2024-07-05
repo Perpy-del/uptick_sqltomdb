@@ -35,4 +35,4 @@ function createBlogValidator(request: Request, response: Response, next: NextFun
   next();
 }
 
-module.exports = createBlogValidator;
+export default createBlogValidator;

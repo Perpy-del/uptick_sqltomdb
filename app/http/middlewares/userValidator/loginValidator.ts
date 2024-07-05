@@ -31,5 +31,5 @@ function loginValidator(request: Request, response: Response, next: NextFunction
     next();
   }
   
-  module.exports = loginValidator;
+export default loginValidator;
   

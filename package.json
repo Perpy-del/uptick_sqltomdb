@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A simple CRUD application using SQL",
   "scripts": {
-    "start": "node server",
     "build": "tsc",
     "start:dev": "nodemon",
     "start:test": "set NODE_ENV=test && nodemon server",
@@ -27,6 +26,7 @@
     "express": "^4.16.4",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.4",
     "morgan": "^1.10.0",
     "pg": "^8.12.0",
     "pg-hstore": "^2.3.4",
@@ -36,8 +36,11 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/morgan": "^1.9.9",
     "@types/node": "^20.14.9",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",

@@ -7,7 +7,7 @@
  */
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import debug from './debug';
+import debug from 'debug';
 import http  from 'http';
 
 import app from './app/index.js';

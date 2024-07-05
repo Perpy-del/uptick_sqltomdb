@@ -1,54 +1,56 @@
-'use strict';
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../../config/database');
+import { Schema, model, Model, Document, VirtualType } from 'mongoose';
 
-const User = sequelize.define('User', 
+interface UserAttributes {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
+}
+
+interface UserDocument extends Document, UserAttributes {}
+
+interface UserModel extends Model<UserDocument> {}
+
+const userSchema = new Schema<UserDocument, UserModel>( 
   {
-    id: {
-      primaryKey: true,
-      allowNull: false,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4
+    userId: {
+      type: String,
+      required: true
     },
     firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true
     },
     lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true
     },
     email: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true
     },
     password: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: String,
+      required: true
     },
     confirmPassword: {
-      type: DataTypes.VIRTUAL,
-      get: () => {
+      type: VirtualType,
+      get(this: UserDocument) {
         return this.password
       }
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    deletedAt: {
-      type: DataTypes.DATE,
     }
   },
   {
-    paranoid: true, // to not completely delete data
-    freezeTableName: true,
-    modelName: 'User',
+    timestamps: true,
   }
 )
 
-module.exports = User;
+// userSchema.virtual('confirmPassword').get(function (this: UserDocument) {
+//   return this.password;
+// });
+
+const User: UserModel = model<UserDocument, UserModel>('User', userSchema);
+
+export default User;

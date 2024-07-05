@@ -1,59 +1,61 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../../config/database');
+import { Schema, model, Document, Model } from "mongoose";
+interface BlogAttributes {
+  blogId: string;
+  title: string;
+  slug: string;
+  author: string;
+  body: string;
+  is_featured?: boolean;
+  category?: string;
+  thumbnail?: string;
+}
 
-const Blog = sequelize.define(
-  'Blog',
+// Extend Mongoose's Document interface to include the blog attributes
+interface BlogDocument extends Document, BlogAttributes {}
+
+// Extend Mongoose's Model interface to include custom methods or statics if needed
+interface BlogModel extends Model<BlogDocument> {}
+
+// Define the blog schema
+const blogSchema = new Schema<BlogDocument, BlogModel>(
+
   {
-    id: {
-      primaryKey: true,
-      allowNull: false,
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+    blogId: {
+      type: String,
+      required: true,
     },
     title: {
-      type: Sequelize.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     slug: {
-      type: Sequelize.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     author: {
-      type: Sequelize.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     body: {
-      type: Sequelize.STRING,
-      allowNull: false,
+      type: String,
+      required: true,
     },
     is_featured: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
+      type: Boolean,
+      default: false,
     },
     category: {
-      type: Sequelize.STRING,
+      type: String,
     },
     thumbnail: {
-      type: Sequelize.STRING,
-    },
-    createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE,
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE,
-    },
-    deletedAt: {
-      type: Sequelize.DATE,
+      type: String,
     },
   },
   {
     timestamps: true,
-    paranoid: true, // to not completely delete data
-    freezeTableName: true,
-    modelName: 'Blog',
   }
 );
 
-module.exports = Blog;
+const Blog: BlogModel = model<BlogDocument, BlogModel>('Blog', blogSchema);
+
+export default Blog;

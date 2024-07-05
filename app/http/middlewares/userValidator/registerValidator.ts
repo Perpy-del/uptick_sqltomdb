@@ -34,4 +34,4 @@ function registerValidator(request: Request, response: Response, next: NextFunct
   next();
 }
 
-module.exports = registerValidator;
+export default registerValidator;

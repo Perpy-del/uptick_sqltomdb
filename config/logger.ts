@@ -1,5 +1,9 @@
 import path from 'path';
-import rfs from 'rotating-file-stream';
+import * as rfs from 'rotating-file-stream';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const pad = (num: any) => (num > 9 ? num : `0${num}`);
 
@@ -18,4 +22,4 @@ const rotatingFileStream: rfs.RotatingFileStream = rfs.createStream(generator, {
   path: path.join(__dirname, '../storage/logs'),
 });
 
-module.exports = rotatingFileStream;
+export default rotatingFileStream;
