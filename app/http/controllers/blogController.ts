@@ -1,11 +1,12 @@
-const service = require('../../services/blogService');
+import * as service from '../../services/blogService.js';
+import { Request, Response } from 'express';
 
-async function getAllBlogPosts(request, response) {
+async function getAllBlogPosts(request: Request, response:Response): Promise<void> {
   try {
     const results = await service.getPosts();
 
     response.json({ data: results });
-  } catch (error) {
+  } catch (error: any) {
     console.log('Error querying database: ', error);
 
     response
@@ -14,12 +15,12 @@ async function getAllBlogPosts(request, response) {
   }
 }
 
-async function getSinglePost(request, response) {
+async function getSinglePost(request: Request, response:Response): Promise<void> {
   try {
     const result = await service.getPost(request.params.id);
 
     response.json({ data: result });
-  } catch (error) {
+  } catch (error: any) {
     console.log('Error querying database: ', error);
 
     response
@@ -28,12 +29,12 @@ async function getSinglePost(request, response) {
   }
 }
 
-async function createBlogPost(request, response) {
+async function createBlogPost(request: Request, response: Response): Promise<void> {
   try {
     const result = await service.createPost(request.body);
 
     response.json({ data: result });
-  } catch (error) {
+  } catch (error: any) {
     console.log('Error querying database: ', error);
 
     response
@@ -42,12 +43,12 @@ async function createBlogPost(request, response) {
   }
 }
 
-async function updateBlogPost(request, response) {
+async function updateBlogPost(request: Request, response: Response): Promise<void> {
   try {
     const result = await service.updatePost(request.body, request.params.id);
 
     response.json({ data: result });
-  } catch (error) {
+  } catch (error: any) {
     console.log('Error querying database: ', error);
 
     response
@@ -56,7 +57,7 @@ async function updateBlogPost(request, response) {
   }
 }
 
-async function deleteBlogPost(request, response) {
+async function deleteBlogPost(request: Request, response: Response): Promise<void> {
   try {
     const result = await service.deletePost(request.params.id);
 
@@ -65,7 +66,7 @@ async function deleteBlogPost(request, response) {
       numberOfDeletedItem: result.deleted,
       deletedBlog: result.postToBeDeleted,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log('Error querying database: ', error);
 
     response

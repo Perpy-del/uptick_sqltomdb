@@ -1,6 +1,8 @@
+import { BlogInterface } from "../interfaces/BlogInterface";
+
 const Blog = require('../../db/models/Blog');
-const NotFoundError = require('../errors/NotFoundError');
-const sluggify = require('../utilities/sluggify');
+import NotFoundError from '../errors/NotFoundError.js';
+import sluggify from '../utilities/sluggify.js';
 
 // Get All Posts
 async function getPosts() {
@@ -10,7 +12,7 @@ async function getPosts() {
 }
 
 // Get A Single Post
-async function getPost(id) {
+async function getPost(id: string) {
   const existingPost = await Blog.findByPk(id);
 
   if (!existingPost) {
@@ -21,7 +23,7 @@ async function getPost(id) {
 }
 
 // Create A New Post
-async function createPost(data) {
+async function createPost(data: BlogInterface) {
   const newPost = await Blog.create({
     title: data.title,
     slug: sluggify(data.title),
@@ -35,7 +37,7 @@ async function createPost(data) {
 }
 
 // Update A Blog Post
-async function updatePost(data, id) {
+async function updatePost(data: BlogInterface, id: string) {
   const existingPost = await Blog.findByPk(id);
 
   await Blog.update(
@@ -57,14 +59,14 @@ async function updatePost(data, id) {
 }
 
 // Delete A Blog Post 
-async function deletePost(id) {
+async function deletePost(id: string) {
     const postToBeDeleted = await Blog.findByPk(id);
 
     const deleted = await Blog.destroy({where: {id: id}});
     return {deleted, postToBeDeleted};
 }
 
-module.exports = {
+export {
   getPosts,
   getPost,
   createPost,

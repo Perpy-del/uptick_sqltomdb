@@ -1,10 +1,12 @@
-const jwt = require('jsonwebtoken');
-const { addSeconds, getTime, formatISO } = require('date-fns');
+import jwt, { GetPublicKeyOrSecret, Secret } from 'jsonwebtoken';
+import { addSeconds, getTime, formatISO } from 'date-fns';
+import { PayloadInterface } from '../../interfaces/PayloadInterface';
+import { Request, Response, NextFunction } from 'express';
 
-function generateToken(data) {
+function generateToken(data: PayloadInterface) {
   const tokenExpiryTime = addSeconds(
     new Date(),
-    process.env.DEV_JWT_EXPIRY_TIME
+    Number(process.env.DEV_JWT_EXPIRY_TIME)
   );
 
   const payload = {
@@ -13,7 +15,7 @@ function generateToken(data) {
     id: data.id,
   };
 
-  const token = jwt.sign(payload, process.env.DEV_APP_SECRET, {
+  const token = jwt.sign(payload, process.env.DEV_APP_SECRET as any, {
     // issuer: process.env.DEV_JWT_ISSUER,
     issuer: process.env.DEV_JWT_ISSUER,
   });
@@ -21,7 +23,7 @@ function generateToken(data) {
   return { token, tokenExpiryTime };
 }
 
-function authenticateUser(request, response, next) {
+function authenticateUser(request: Request, response: Response, next: NextFunction) {
     const authorizationHeader = request.headers.authorization;
 
     if (!authorizationHeader) {
@@ -38,8 +40,8 @@ function authenticateUser(request, response, next) {
     const token = authorizationHeader.split(' ')[1]
 
     try {
-      jwt.verify(token, process.env.DEV_APP_SECRET)
-    } catch (error) {
+      jwt.verify(token, process.env.DEV_APP_SECRET as Secret | GetPublicKeyOrSecret)
+    } catch (error: any) {
       return response.status(401).json({
         data: {
           error: {
@@ -55,7 +57,7 @@ function authenticateUser(request, response, next) {
 }
 
 
-module.exports = {
+export {
     generateToken,
     authenticateUser
 }

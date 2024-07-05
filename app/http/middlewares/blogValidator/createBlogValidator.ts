@@ -1,7 +1,8 @@
-const Joi = require('joi');
+import Joi from 'joi';
+import { Request, Response, NextFunction } from 'express';
 
-function createBlogValidator(request, response, next) {
-  const schema = Joi.object({
+function createBlogValidator(request: Request, response: Response, next: NextFunction) {
+  const schema: Joi.ObjectSchema<any> = Joi.object({
     title: Joi.string().trim().required(),
     author: Joi.string().trim().required(),
     body: Joi.string().trim().required(),
@@ -15,8 +16,8 @@ function createBlogValidator(request, response, next) {
   if (error) {
     console.log(error);
     const errorDetails = error.details.map(detail => {
-      const message = detail.message.split('"')[2].trim();
-      const key = detail.context.key;
+      const message: string = detail.message.split('"')[2].trim();
+      const key: any = detail?.context?.key;
 
       return { [key]: `The ${key} field ${message}` };
     });

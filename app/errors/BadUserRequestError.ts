@@ -1,5 +1,7 @@
 class BadUserRequestError extends Error {
-    constructor(message) {
+    statusCode: number;
+
+    constructor(message: string) {
         super(message);
         this.name = this.constructor.name;
         this.statusCode = 400;
@@ -7,4 +9,4 @@ class BadUserRequestError extends Error {
     }
 }
 
-module.exports = BadUserRequestError;
+export default BadUserRequestError;

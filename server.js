@@ -7,13 +7,16 @@
  */
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-const debug = require('debug')('sca-capstone:server');
-const http = require('http');
-const app = require('./app');
+import debug from './debug';
+import http  from 'http';
+
+import app from './app/index.js';
 
 /**
  * Normalize a port into a number, string, or false.
  */
+
+const log = debug('uptick:server')
 
 function normalizePort(val) {
   const myPort = parseInt(val, 10);

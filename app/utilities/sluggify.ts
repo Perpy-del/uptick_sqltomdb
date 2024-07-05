@@ -1,4 +1,4 @@
-function sluggify(text) {
+function sluggify(text: string): string | null {
     if (!text) {
         return null
     };
@@ -10,4 +10,4 @@ function sluggify(text) {
       .replace(/-+$/, ''); // Remove trailing hyphens
 }
 
-module.exports = sluggify;
+export default sluggify;

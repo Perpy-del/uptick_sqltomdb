@@ -1,11 +1,12 @@
-const service = require('../../services/authService');
+import * as service from '../../services/authService.js';
+import { Request, Response } from 'express';
 
-async function createUser(request, response) {
+async function createUser(request: Request, response: Response): Promise<void> {
   try {
     const result = await service.registerUser(request.body);
 
     response.json({ data: result });
-  } catch (error) {
+  } catch (error: any) {
     console.log('Error querying database: ', error);
 
     response
@@ -14,13 +15,13 @@ async function createUser(request, response) {
   }
 }
 
-async function signInUser(request, response) {
+async function signInUser(request: Request, response: Response): Promise<void> {
   try {
     const result = await service.login(request.body);
 
     response.json({ data: result })
 
-  } catch (error) {
+  } catch (error: any) {
     console.log('Error querying database: ', error);
 
     response
@@ -29,7 +30,7 @@ async function signInUser(request, response) {
   }
 }
 
-function protectedRoute(request, response) {
+function protectedRoute(request: Request, response: Response): void {
   response.status(200).json({
     status: 'Success',
     message: 'Route is protected',

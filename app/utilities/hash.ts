@@ -1,6 +1,6 @@
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
-async function hashPassword(password) {
+async function hashPassword(password: string): Promise<string> {
   const saltRound = Number(process.env.DEV_BCRYPT_SALT_ROUND)
   return new Promise((resolve, reject) => {
     try {
@@ -13,7 +13,7 @@ async function hashPassword(password) {
   });
 }
 
-async function comparePassword(password, passwordHash) {
+async function comparePassword(password: string, passwordHash: string): Promise<boolean> {
   return new Promise((resolve, reject) => {
     try {
       const result = bcrypt.compare(password, passwordHash);
@@ -25,7 +25,7 @@ async function comparePassword(password, passwordHash) {
   })
 }
 
-module.exports = {
+export {
     hashPassword,
     comparePassword
 }

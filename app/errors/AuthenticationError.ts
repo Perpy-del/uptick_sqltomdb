@@ -1,5 +1,7 @@
 class AuthenticationError extends Error {
-    constructor(message) {
+    statusCode: number;
+
+    constructor(message: string) {
         super(message);
         this.name = this.constructor.name;
         this.statusCode = 400;
@@ -7,4 +9,4 @@ class AuthenticationError extends Error {
     }
 }
 
-module.exports = AuthenticationError;
+export default AuthenticationError;

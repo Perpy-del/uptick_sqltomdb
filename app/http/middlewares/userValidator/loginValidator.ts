@@ -1,7 +1,8 @@
-const Joi = require('joi');
+import Joi from 'joi';
+import { Request, Response, NextFunction } from 'express';
 
-function loginValidator(request, response, next) {
-    const schema = Joi.object({
+function loginValidator(request: Request, response: Response, next: NextFunction) {
+    const schema: Joi.ObjectSchema<any> = Joi.object({
       email: Joi.string().trim().required().email(),
       password: Joi.string().trim().required().min(6).max(50),
     });
@@ -12,7 +13,7 @@ function loginValidator(request, response, next) {
       console.log(error);
       const errorDetails = error.details.map(detail => {
         const message = detail.message.split('"')[2].trim();
-        const key = detail.context.key;
+        const key: any = detail.context?.key;
   
         return { [key]: `The ${key} field ${message}` };
       });
