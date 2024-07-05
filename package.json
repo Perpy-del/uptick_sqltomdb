@@ -1,7 +1,7 @@
 {
-  "name": "uptick-sql",
+  "name": "uptick-sqltomdb",
   "version": "1.0.0",
-  "description": "A simple CRUD application using SQL",
+  "description": "A simple CRUD application using MongoDB",
   "scripts": {
     "build": "tsc",
     "start:dev": "nodemon",
