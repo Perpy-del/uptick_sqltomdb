@@ -1,12 +1,12 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import logger from 'morgan';
-import rotatingFileStream from '../config/logger.js';
+// import logger from 'morgan';
+// import rotatingFileStream from '../config/logger';
 import cors from 'cors';
 import dotenv from 'dotenv'
-import authRouter from './http/routes/authRouter.js'
-import blogRouter from './http/routes/blogRouter.js';
-import connectToDb from '../config/database.js';
+import authRouter from './http/routes/authRouter'
+import blogRouter from './http/routes/blogRouter';
+import connectToDb from '../config/database';
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ const app = express();
 
 connectToDb()
 
-app.use(logger('combined', { stream: rotatingFileStream }));
+// app.use(logger('combined', { stream: rotatingFileStream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

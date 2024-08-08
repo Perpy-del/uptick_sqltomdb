@@ -1,8 +1,8 @@
 import { BlogInterface } from '../interfaces/BlogInterface';
 
-import Blog, { BlogAttributes } from '../models/Blog.js';
-import NotFoundError from '../errors/NotFoundError.js';
-import sluggify from '../utilities/sluggify.js';
+import Blog, { BlogAttributes } from '../models/Blog';
+import NotFoundError from '../errors/NotFoundError';
+import sluggify from '../utilities/sluggify';
 import { randomUUID } from 'crypto';
 
 // Get All Posts
