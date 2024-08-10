@@ -20,7 +20,14 @@ describe('blogs API', () => {
 
     // Extract the token from the response
     authToken = loginResponse.body.data.token;
-  }, 25000);
+  }, 15000);
+
+  afterAll(async () => {
+    // Clean up the created blog posts after all tests are done
+    if (createdId) {
+      await Blog.deleteOne({ _id: createdId });
+    }
+  }, 10000);
 
   it('gets all blog posts', async () => {
     // Assign
@@ -205,6 +212,11 @@ describe('delete a blog post specified with the blogId', () => {
       .expect(200);
 
     authToken = loginResponse.body.data.token;
+  });
+
+  afterAll(async () => {
+    // Clean up the blog post created for deletion test
+    await Blog.deleteOne({ blogId });
   });
 
   it('should delete the specified blog post', async () => {

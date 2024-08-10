@@ -1,8 +1,8 @@
 import express from 'express';
 
-import * as authMiddleware from '../middlewares/authMiddleware';
-import * as blogController from '../controllers/blogController';
-import validateNewBlog from '../middlewares/blogValidator/createBlogValidator';
+import * as authMiddleware from '../middlewares/authMiddleware.js';
+import * as blogController from '../controllers/blogController.js';
+import validateNewBlog from '../middlewares/blogValidator/createBlogValidator.js';
 
 const router = express.Router();
 

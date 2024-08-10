@@ -1,4 +1,4 @@
-import * as service from '../../services/authService';
+import * as service from '../../services/authService.js';
 import { Request, Response } from 'express';
 
 async function createUser(request: Request, response: Response): Promise<void> {

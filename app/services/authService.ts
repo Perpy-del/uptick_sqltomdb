@@ -1,8 +1,8 @@
-import BadUserRequestError from '../errors/BadUserRequestError';
-import * as  hash from '../utilities/hash';
-import * as  middleware from '../http/middlewares/authMiddleware';
+import BadUserRequestError from '../errors/BadUserRequestError.js';
+import * as  hash from '../utilities/hash.js';
+import * as  middleware from '../http/middlewares/authMiddleware.js';
 import { UserInterface } from '../interfaces/UserInterface';
-import User, { UserAttributes } from '../models/User';
+import User, { UserAttributes } from '../models/User.js';
 import { PayloadInterface } from '../interfaces/PayloadInterface';
 import { randomUUID } from 'crypto';
 

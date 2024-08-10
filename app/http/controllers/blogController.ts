@@ -1,4 +1,4 @@
-import * as service from '../../services/blogService';
+import * as service from '../../services/blogService.js';
 import { Request, Response } from 'express';
 
 async function getAllBlogPosts(request: Request, response:Response): Promise<void> {
