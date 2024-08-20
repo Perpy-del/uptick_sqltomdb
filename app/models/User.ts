@@ -6,6 +6,7 @@ export interface UserAttributes {
   firstName: string;
   lastName: string;
   email: string;
+  image?: string;
   password: string;
   confirmPassword?: string;
   createdAt?: string;
@@ -33,6 +34,9 @@ const userSchema = new Schema<UserDocument, UserModel>(
     email: {
       type: String,
       required: true
+    },
+    image: {
+      type: String,
     },
     password: {
       type: String,
