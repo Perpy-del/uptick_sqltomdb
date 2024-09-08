@@ -136,8 +136,10 @@ Visit `http://localhost:PORT/api` in your web browser to access the application.
 
 **Base URL**
 Main URL
-https://uptick-mdb.onrender.com/api
-https://free.pominfo.site/api (Deployed on AWS EC2 and Route53 for DNS using Nginx for reverse proxy and Certbot for SSL Certification)
+[https://uptick-mdb.onrender.com/api](https://uptick-sqltomdb.onrender.com/api)
+
+**Deployment on EC2**
+[https://free.pominfo.site/api](http://free.pominfo.site/api) (Deployed on AWS EC2 and Route53 for DNS using Nginx for reverse proxy and Certbot for SSL Certification)
 
 ## Troubleshooting
 
